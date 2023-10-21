@@ -24,8 +24,14 @@ class ThemeSlider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDay: true
+            isDay: !!(localStorage.getItem("isDay") ?? true)
         };
+    }
+
+    componentDidMount() {
+        if (!this.state.isDay) {
+            setNightTheme();
+        }
     }
 
     handleClick = () => {
@@ -36,8 +42,10 @@ class ThemeSlider extends React.Component {
         
         if (this.state.isDay) {
             setNightTheme();
+            localStorage.setItem("isDay", "");
         } else {
             setDayTheme();
+            localStorage.setItem("isDay", "1");
         }
     };
     

@@ -12,7 +12,7 @@ class App extends React.Component {
         this.state = {
             levelCount: 0,
             currentLevel: 1,
-            isDay: true,
+            isDay: !!(localStorage.getItem("isDay") ?? true),
             currentCharacter: "Black"
         };
     }

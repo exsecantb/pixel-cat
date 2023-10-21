@@ -1,4 +1,6 @@
 import React from 'react';
+import SpeechBubble from './SpeechBubble';
+
 import blackIdle from '../icon/cat/black_idle_8fps.gif';
 import blackWalking from '../icon/cat/black_walk_8fps.gif';
 import blackJump from '../icon/cat/black_run_8fps.gif';
@@ -387,21 +389,24 @@ class Cat extends React.Component {
             height: '45px'
         };
 
-        return (<div className="cat" style={styleCat}>
-            <div className="stamina_bar" style={{
-                background: `linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color) ${this.state.stamina}%, var(--main-color) ${this.state.stamina}%, var(--main-color) 100%)`,
-                opacity: this.state.stamina === 100 ? '0' : '100'
-            }}></div>
-            <img src={
-                this.state.isStuck ? this.characterIcon[this.state.currentCharacter]["Stuck"] :
-                this.state.isJump ? this.characterIcon[this.state.currentCharacter]["Jump"] :
-                this.state.isRunning ? this.characterIcon[this.state.currentCharacter]["Run"] :
-                this.state.isWalking ? this.characterIcon[this.state.currentCharacter]["Walking"] : this.characterIcon[this.state.currentCharacter]["Idle"]
-            } alt="Cat"/>
-            <div id="control" style={
-                this.state.isJump ? controlJump : 
-                this.state.isWalking ? controlWalk : null
-            }></div>
+        return (<div>
+            <SpeechBubble moveValue={this.state.distance} isAlive={this.state.isAlive}/>
+            <div className="cat" style={styleCat}>
+                <div className="stamina_bar" style={{
+                    background: `linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color) ${this.state.stamina}%, var(--main-color) ${this.state.stamina}%, var(--main-color) 100%)`,
+                    opacity: this.state.stamina === 100 ? '0' : '100'
+                }}></div>
+                <img src={
+                    this.state.isStuck ? this.characterIcon[this.state.currentCharacter]["Stuck"] :
+                    this.state.isJump ? this.characterIcon[this.state.currentCharacter]["Jump"] :
+                    this.state.isRunning ? this.characterIcon[this.state.currentCharacter]["Run"] :
+                    this.state.isWalking ? this.characterIcon[this.state.currentCharacter]["Walking"] : this.characterIcon[this.state.currentCharacter]["Idle"]
+                } alt="Cat"/>
+                <div id="control" style={
+                    this.state.isJump ? controlJump : 
+                    this.state.isWalking ? controlWalk : null
+                }></div>
+            </div>
         </div>)
     }
 }

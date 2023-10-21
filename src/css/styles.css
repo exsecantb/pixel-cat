@@ -27,7 +27,6 @@ html {
     --accent-color: #000;
     --transparent-color: #ffffff96;
     --hover-color: #eaeaea;
-    transition: background-color .5s linear, color .5s linear;
     background-color: var(--main-color);
     overflow: hidden;
 }
@@ -149,7 +148,7 @@ html {
     position: absolute;
     width: 110%;
     height: 110%;
-    transition: opacity .5s linear, background-color .5s linear;
+    transition: opacity .5s linear;
 }
 
 .field {
@@ -157,7 +156,6 @@ html {
     width: 100%;
     position: relative;
     border: solid var(--main-color);
-    transition: border-color .5s linear;
     border-width: 0 15vw;
     overflow: hidden;
 }
@@ -280,7 +278,7 @@ html {
     align-items: center;
     justify-content: center;
     font-family: 'Tickerbit regular', monospace;
-    transition: opacity .5s linear, background-color .5s linear;
+    transition: opacity .5s linear;
     color: var(--accent-color);
 }
 
@@ -310,7 +308,6 @@ html {
     border: solid 1.5px var(--accent-color);
     letter-spacing: 0.03em;
     height: 38px;
-    transition: background-color .5s linear;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -397,7 +394,6 @@ html {
     cursor: pointer;
     border: 1.5px solid var(--accent-color);
     position: relative;
-    transition: background-color .5s linear, color .5s linear;
 }
   
 .header {
@@ -617,4 +613,26 @@ thead td {
     letter-spacing: 0.1em;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
+}
+
+.bubble {
+    position: relative;
+    left: 210px;
+    top: 40px;
+    min-height: 30px;
+    max-height: 50px;
+    max-width: 150px;
+    text-align: center;
+    border: 1.5px var(--accent-color) dashed;
+    padding: 6px 10px;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    z-index: 1;
+}
+
+.speech {
+    font-family: 'Tickerbit', monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--accent-color);
 }
