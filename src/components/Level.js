@@ -81,7 +81,7 @@ const Level = ({ number, setLevelCount, isDay }) => {
             <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
         <div className="obstacles_line">
-            <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
+            <div className={elementsKit["grass"]} id="first_platform" style={{ width: "70vw" }}>
                 <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                 <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
             </div>
@@ -93,7 +93,7 @@ const Level = ({ number, setLevelCount, isDay }) => {
             <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
             <div className="obstacles_line">
-                <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
+                <div className={elementsKit["grass"]} id="first_platform" style={{ width: "70vw" }}>
                     <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                     <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
                 </div>
@@ -105,7 +105,7 @@ const Level = ({ number, setLevelCount, isDay }) => {
             <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
             <div className="obstacles_line">
-                <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
+                <div className={elementsKit["grass"]} id="first_platform" style={{ width: "70vw" }}>
                     <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                     <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
                 </div>
