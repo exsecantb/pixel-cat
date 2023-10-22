@@ -35,10 +35,9 @@ class SpeechBubble extends React.Component {
             isShown: true,
             current: prevState.current + 1
         }));
-        console.log(this.props.currentLevel + ' ' + this.state.current)
         // Animated text
         let message = this.speeches[this.props.currentLevel][this.state.current];
-        const delay = 120;
+        const delay = 115;
         const elem = document.getElementById("speech");
         elem.innerHTML = '';
         let print_text = (message, elem, delay) => {
