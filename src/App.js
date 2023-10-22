@@ -53,7 +53,7 @@ class App extends React.Component {
     
     render() {
         return (<div>
-            <div className="plug">This website only works on PC. Please change your device.</div>
+            <div className="plug">This website only works on wide screens. Please change your device.</div>
             <div className="header">
                 <div className="customizer">
                     <ChangeCharacter onCharacterChange={this.updateCharacter}/>
@@ -70,7 +70,7 @@ class App extends React.Component {
             </div>
             <div className="footer">
                 <div className="info">
-                    Developed by <a href="https://github.com/exsecantb" target="_blank" rel="noreferrer">@exsecantb</a>,<br/>August 2023
+                    Developed by <a href="https://github.com/exsecantb/pixel-cat" target="_blank" rel="noreferrer">@exsecantb</a>,<br/>August 2023
                 </div>
             </div>
         </div>)

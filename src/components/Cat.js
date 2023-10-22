@@ -107,6 +107,7 @@ class Cat extends React.Component {
         this.moveStartTimestamp = null;
         this.moveId = null;
         this.staminaId = null;
+        this.speechBubble.hardShutdown();
     };
 
     componentDidUpdate(prevProps) {
@@ -214,7 +215,6 @@ class Cat extends React.Component {
             const borderLeft = 0.15 * window.innerWidth + 3;
             const borderRight = 0.85 * window.innerWidth - 40;
             const centerPosition = 0.5 * window.innerWidth;
-            
             // Checking if is stuck on the border
             if ((elementLeft < borderLeft && !this.state.isRight) || (elementRight > borderRight && this.state.isRight)) {
                 this.setState({
@@ -284,7 +284,7 @@ class Cat extends React.Component {
             // Checking if falling
             this.checkIfFalling();
             // Checking if win
-            this.checkIfWin();
+            this.checkIfWin(elementRight);
             this.moveStartTimestamp = timestamp;
             this.moveId = requestAnimationFrame((timestamp) => this.moveCat(timestamp, direction));
         }
@@ -325,21 +325,34 @@ class Cat extends React.Component {
                     isFalling: true,
                     isAlive: false
                 });
+                this.speechBubble.hardShutdown();
                 this.props.onDeath("What happens if you mix cat and water?");
             }
         }
     }
 
-    checkIfWin() {
-        const control = document.getElementById("control");
+    checkIfWin(catRight) {
         const finish = document.getElementsByClassName("checkpoint finish")[0];
-        const catRight = calculateElementRight(control);
         const finishCenter = calculateElementCenter(finish);
         if (catRight >= finishCenter) {
             this.setState({
                 isAlive: false
             });
+            this.speechBubble.hardShutdown();
             this.props.onFinish();
+        } else {
+            // Checking if bubble should be displayed
+            this.checkBubble(catRight);
+        }
+    }
+
+    checkBubble(catRight) {
+        const bubbles = document.getElementsByClassName("show-bubble");
+        if (bubbles.length > this.speechBubble.state.current) {
+            const bubbleCenter = calculateElementCenter(bubbles[this.speechBubble.state.current]);
+            if (catRight >= bubbleCenter && !this.speechBubble.state.isShown) {
+                this.speechBubble.showBubble();
+            }
         }
     }
 
@@ -390,7 +403,7 @@ class Cat extends React.Component {
         };
 
         return (<div>
-            <SpeechBubble moveValue={this.state.distance} isAlive={this.state.isAlive}/>
+            <SpeechBubble currentLevel={this.props.currentLevel} ref={ref => this.speechBubble = ref} moveValue={this.state.distance} isAlive={this.state.isAlive}/>
             <div className="cat" style={styleCat}>
                 <div className="stamina_bar" style={{
                     background: `linear-gradient(90deg, var(--accent-color) 0%, var(--accent-color) ${this.state.stamina}%, var(--main-color) ${this.state.stamina}%, var(--main-color) 100%)`,

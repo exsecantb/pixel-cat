@@ -9,7 +9,6 @@ class Keyboard extends React.Component {
                 <div className="key" id="arrow_left">🠔</div>
                 <div className="key" id="arrow_right">🠖</div>
             </div><span  id="arrow_l">Walking</span></label>
-            <div id="hide_keyboard"></div>
         </div>);
     }
 }

@@ -142,15 +142,6 @@ html {
     letter-spacing: 0.05em;
 }
 
-#hide_keyboard {
-    opacity: 0;
-    background-color: var(--transparent-color);
-    position: absolute;
-    width: 110%;
-    height: 110%;
-    transition: opacity .5s linear;
-}
-
 .field {
     height: 200px;
     width: 100%;
@@ -169,6 +160,8 @@ html {
     background-size: 48px;
     background-position: 20px 15px;
     background-image: url('../icon/grass.svg');
+    display: flex;
+    align-items: flex-end;
 }
 
 .night_grass {
@@ -216,6 +209,9 @@ html {
     animation: waterwave 1s infinite linear;
     background-position-y: 4px;
     border-top: solid 2px var(--accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 @keyframes waterwave {
@@ -265,11 +261,15 @@ html {
 }
 
 .restart_block {
-    display: flex;
+    display: none;
     position: fixed;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: var(--transparent-color);
-    width: 70vw;
-    min-height: 200px;
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     z-index: 1;
     gap: 30px;
@@ -337,16 +337,18 @@ html {
 }
 
 .decor {
-    position: absolute;
+    position: relative;
     image-rendering: pixelated;
     bottom: 50px;
+    height: auto;
 }
 
 .fish {
-    position: absolute;
+    position: relative;
     image-rendering: pixelated;
     width: 95px;
-    bottom: 35px;
+    height: 95px;
+    bottom: 30px;
     z-index: 1;
 }
 
@@ -433,7 +435,6 @@ html {
     transition: opacity 1s linear;
     opacity: 0;
     font-size: 14px;
-    width: 400px;
     text-align: center;
     color: var(--accent-color);
 }
@@ -517,6 +518,7 @@ html {
     bottom: 0;
     padding: 20px;
     margin-top: 50px;
+    z-index: 1;
 }
 
 .info {
@@ -617,22 +619,27 @@ thead td {
 
 .bubble {
     position: relative;
-    left: 210px;
-    top: 40px;
-    min-height: 30px;
-    max-height: 50px;
-    max-width: 150px;
-    text-align: center;
+    left: 205px;
+    top: 45px;
+    max-width: 180px;
+    width: fit-content;
     border: 1.5px var(--accent-color) dashed;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 8px 15px;
+    border-radius: 8px 8px 8px 0px;
     background-color: var(--main-color);
     z-index: 1;
+    transition: opacity 1s linear;
 }
 
-.speech {
+#speech {
     font-family: 'Tickerbit', monospace;
     font-size: 12px;
     letter-spacing: 0.02em;
     color: var(--accent-color);
+}
+
+.show-bubble {
+    height: 50px;
+    width: 2px;
+    position: relative;
 }

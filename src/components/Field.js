@@ -29,10 +29,10 @@ class Field extends React.Component {
     };
 
     handleDeath = (text) => {
+        document.getElementsByClassName("restart_block")[0].style.display = 'flex';
         this.setState({
             isRestart: true
         });
-        document.getElementById("hide_keyboard").style.opacity = 100;
         this.restartText = text;
         this.timeText = 'Your time';
         this.props.timer.stopStopwatch();
@@ -42,6 +42,7 @@ class Field extends React.Component {
     finishMessages = ["Level complete! Well done :)", "Nice work! Level accomplished.", "Skillfully done! Level finished.", "You're faster than a caffeinated squirrel!"];
 
     handleFinish = () => {
+        document.getElementsByClassName("restart_block")[0].style.display = 'flex';
         this.setState({
             isRestart: true,
             isFinish: true
@@ -60,7 +61,6 @@ class Field extends React.Component {
             this.timeText = 'Your time';
         }
         this.restartScore = this.props.timer.formatTime(this.props.timer.state.time);
-        document.getElementById("hide_keyboard").style.opacity = 100;
         this.restartText = this.finishMessages[Math.floor(Math.random() * this.finishMessages.length)];
     };
 
@@ -69,7 +69,6 @@ class Field extends React.Component {
             isRestart: false,
             distance: 0
         });
-        document.getElementById("hide_keyboard").style.opacity = 0;
         this.childComponent.restartGame();
         setTimeout(() => {
             this.setState({
@@ -78,10 +77,10 @@ class Field extends React.Component {
         }, 500);
         this.props.timer.resetStopwatch();
         this.props.timer.startStopwatch();
+        setTimeout(() => document.getElementsByClassName("restart_block")[0].style.display = 'none', 500);
     };
 
     callFinish = () => {
-        document.getElementById("hide_keyboard").style.opacity = 0;
         this.props.updateLevel();
         this.setState((prevState) => ({
             currentLevel: prevState.currentLevel + 1,
@@ -96,6 +95,7 @@ class Field extends React.Component {
         }, 500);
         this.props.timer.resetStopwatch();
         this.props.timer.startStopwatch();
+        setTimeout(() => document.getElementsByClassName("restart_block")[0].style.display = 'none', 500);
     };
 
     componentDidMount() {
@@ -118,7 +118,7 @@ class Field extends React.Component {
     
     render() {
         return (<div className="field">
-            <Cat currentCharacter={this.props.currentCharacter} maxFloorShift={this.state.maxDistance} onDistanceChange={this.handleDistanceChange} onDeath={this.handleDeath} onFinish={this.handleFinish} ref={ref => this.childComponent = ref}/>
+            <Cat currentLevel={this.state.currentLevel - 1} currentCharacter={this.props.currentCharacter} maxFloorShift={this.state.maxDistance} onDistanceChange={this.handleDistanceChange} onDeath={this.handleDeath} onFinish={this.handleFinish} ref={ref => this.childComponent = ref}/>
             <div className="floor" style={{transform: `translate(-${this.state.distance}px)`}}>
                 <Level isDay={this.props.isDay} number={this.state.currentLevel - 1} setLevelCount={this.setLevelCount}/>
             </div>

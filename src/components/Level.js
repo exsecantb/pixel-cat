@@ -42,27 +42,35 @@ const Level = ({ number, setLevelCount, isDay }) => {
         }
     }, [isDay]);
 
+    /*
+        All the decorations should be positioned relative to the boundaries of their platform.
+        Positioning is applied relative to the right edge only for the first platform, for the rest - to the left.
+        The relative positioning rule does not apply to start and finish flags.
+    */
+
     const level1 = (<div>
         <div className="tip_line">
+            <div className="show-bubble" style={{left: "220px"}}></div>
             <Tip leftValue="calc(70vw - 180px)" tipText="START→" size="30px"/>
-            <Tip leftValue="200px" tipText="Oh..." size="24px"/>
+            <div className="show-bubble" style={{left: "300px"}}></div>
+            <div className="show-bubble" style={{left: "1250px"}}></div>
         </div>
         <div className="obstacles_line">
-            <div className={elementsKit["grass"]} style={{width: "calc(70vw + 800px)"}}>
+            <div className={elementsKit["grass"]} style={{width: "calc(70vw + 800px)", justifyContent: "flex-end"}}>
                 <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
-                <img className="decor" id="sign" style={{left: "1250px", width: "80px"}} src={elementsKit["riverSign"]} alt="Sign"></img>
-                <img className="decor" id="bench" style={{left: "1380px", width: "200px"}} src={elementsKit["bench"]} alt="Bench"></img>
+                <img className="decor" id="sign" style={{right: "150px", maxWidth: "80px"}} src={elementsKit["riverSign"]} alt="Sign"></img>
+                <img className="decor" id="bench" style={{right: "100px", maxWidth: "200px"}} src={elementsKit["bench"]} alt="Bench"></img>
             </div>
             <div className="water" style={{ width: 140 }}>
-                <img className="fish" style={{left: "1720px"}} src={elementsKit["fish"][0]} alt="Fish"></img>
+                <img className="fish" src={elementsKit["fish"][0]} alt="Fish"></img>
             </div>
             <div className={elementsKit["grass"]} style={{ width: 90 }}>
-                <img className="decor" id="bucket" style={{left: "1855px", width: "100px"}} src={elementsKit["bucket"]} alt="Bucket"></img>
+                <img className="decor" id="bucket" style={{left: "10px", maxWidth: "120%"}} src={elementsKit["bucket"]} alt="Bucket"></img>
             </div>
             <div className="water" style={{ width: 140 }}>
-                <img className="fish" style={{left: "1950px"}} src={elementsKit["fish"][1]} alt="Fish"></img>
+                <img className="fish" src={elementsKit["fish"][1]} alt="Fish"></img>
             </div>
-            <div className={elementsKit["grass"]} style={{ width: 400 }}>
+            <div className={elementsKit["grass"]} style={{ width: 600 }}>
                 <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
             </div>
         </div>
@@ -70,10 +78,10 @@ const Level = ({ number, setLevelCount, isDay }) => {
 
     const level2 = (<div>
         <div className="tip_line">
-            
+            <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
         <div className="obstacles_line">
-            <div className={elementsKit["grass"]} id="first_platform">
+            <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
                 <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                 <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
             </div>
@@ -82,10 +90,10 @@ const Level = ({ number, setLevelCount, isDay }) => {
 
     const level3 = (<div>
         <div className="tip_line">
-            
+            <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
             <div className="obstacles_line">
-                <div className={elementsKit["grass"]} id="first_platform">
+                <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
                     <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                     <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
                 </div>
@@ -94,10 +102,10 @@ const Level = ({ number, setLevelCount, isDay }) => {
 
     const level4 = (<div>
         <div className="tip_line">
-            
+            <div className="show-bubble" style={{left: "220px"}}></div>
         </div>
             <div className="obstacles_line">
-                <div className={elementsKit["grass"]} id="first_platform">
+                <div className={elementsKit["grass"]} id="first_platform" style={{ width: 880 }}>
                     <img className="checkpoint start" src={elementsKit["start"]} alt="Start"></img>
                     <img className="checkpoint finish" src={elementsKit["finish"]} alt="Finish"></img>
                 </div>
