@@ -67,9 +67,14 @@ class Field extends React.Component {
     callRestart = () => {
         this.setState({
             isRestart: false,
-            distance: 0
+            distance: this.childComponent.state.checkpoint[1]
         });
         this.childComponent.restartGame();
+        this.childComponent.setState({
+            distance: this.childComponent.state.checkpoint[0],
+            shift: this.childComponent.state.checkpoint[1],
+            isLimit: this.childComponent.state.checkpoint[2]
+        });
         setTimeout(() => {
             this.setState({
                 isFinish: false
@@ -77,6 +82,9 @@ class Field extends React.Component {
         }, 500);
         this.props.timer.resetStopwatch();
         this.props.timer.startStopwatch();
+        this.props.timer.setState({
+            time: this.childComponent.state.checkpoint[3]
+        });
         setTimeout(() => document.getElementsByClassName("restart_block")[0].style.display = 'none', 500);
     };
 
@@ -88,6 +96,9 @@ class Field extends React.Component {
             distance: 0
         }));
         this.childComponent.restartGame();
+        this.childComponent.setState({
+            checkpoint: [0, 0, false, 0]
+        });
         setTimeout(() => {
             this.setState({
                 isFinish: false
@@ -118,7 +129,7 @@ class Field extends React.Component {
     
     render() {
         return (<div className="field">
-            <Cat currentLevel={this.state.currentLevel - 1} currentCharacter={this.props.currentCharacter} maxFloorShift={this.state.maxDistance} onDistanceChange={this.handleDistanceChange} onDeath={this.handleDeath} onFinish={this.handleFinish} ref={ref => this.childComponent = ref}/>
+            <Cat timer={this.props.timer} currentLevel={this.state.currentLevel - 1} currentCharacter={this.props.currentCharacter} maxFloorShift={this.state.maxDistance} onDistanceChange={this.handleDistanceChange} onDeath={this.handleDeath} onFinish={this.handleFinish} ref={ref => this.childComponent = ref}/>
             <div className="floor" style={{transform: `translate(-${this.state.distance}px)`}}>
                 <Level isDay={this.props.isDay} number={this.state.currentLevel - 1} setLevelCount={this.setLevelCount}/>
             </div>

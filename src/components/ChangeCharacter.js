@@ -1,9 +1,9 @@
 import React from 'react';
-import blackIcon from '../icon/black_icon.png';
-import brownIcon from '../icon/brown_icon.png';
-import grayIcon from '../icon/gray_icon.png';
-import lightbrownIcon from '../icon/lightbrown_icon.png';
-import whiteIcon from '../icon/white_icon.png';
+import blackIcon from '../icon/cat/black_icon.png';
+import brownIcon from '../icon/cat/brown_icon.png';
+import grayIcon from '../icon/cat/gray_icon.png';
+import lightbrownIcon from '../icon/cat/lightbrown_icon.png';
+import whiteIcon from '../icon/cat/white_icon.png';
 
 class ChangeCharacter extends React.Component {
     constructor(props) {

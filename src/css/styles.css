@@ -12,6 +12,27 @@
     src: local(''), url('../font/Tickerbit-regular.woff') format('woff');
 }
 
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--accent-color);;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 body::-webkit-scrollbar{
     display: none;
 }
@@ -36,10 +57,30 @@ html {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
 }
 
 .plug {
     display: none;
+}
+
+.loader_plug {
+    display: flex;
+    background-color: var(--main-color);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1000px) {
@@ -67,7 +108,8 @@ html {
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    margin: 20px 0 0 0;
+    position: relative;
+    margin-top: 20px;
 }
 
 .keyboard {
@@ -159,13 +201,13 @@ html {
     border-radius: 5px 5px 0 0;
     background-size: 48px;
     background-position: 20px 15px;
-    background-image: url('../icon/grass.svg');
+    background-image: url('../icon/elements/day/grass.svg');
     display: flex;
     align-items: flex-end;
 }
 
 .night_grass {
-    background-image: url('../icon/grass_night.svg');
+    background-image: url('../icon/elements/night/grass.svg');
 }
 
 .cat {
@@ -180,13 +222,14 @@ html {
     transform-origin: bottom;
     filter: saturate(1);
     transition: filter .7s linear;
+    image-rendering: pixelated;
 }
 
 #control {
-    width: 60px;
+    width: 52px;
     height: 52px;
     position: absolute;
-    left: 60%;
+    left: 55%;
     right: 50%;
     bottom: 5px;
     transform: translate(-65%, 3%);
@@ -230,9 +273,8 @@ html {
     flex-direction: row;
     align-items: baseline;
     flex-wrap: nowrap;
-    max-width: 100px;
     color: var(--accent-color);
-    gap: 10px;
+    bottom: 55px;
 }
 
 .tip .text {
@@ -243,17 +285,7 @@ html {
     width: 28px;
 }
 
-.tip_line {
-    position: absolute;
-    width: 100%;
-    bottom: 52px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-}
-
-.obstacles_line {
+.elements_line {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -399,12 +431,15 @@ html {
 }
   
 .header {
-    margin: 60px 15vw 40px 15vw;
+    padding: 60px 15vw 0px 15vw;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     flex-wrap: nowrap;
     flex-direction: row;
+    position: absolute;
+    top: 0;
+    width: 100vw;
 }
 
 .active {
@@ -516,8 +551,7 @@ html {
     position: absolute;
     width: 100vw;
     bottom: 0;
-    padding: 20px;
-    margin-top: 50px;
+    padding: 0 20px 20px;
     z-index: 1;
 }
 
@@ -595,7 +629,6 @@ table.score_table {
 td:not(thead td) {
     border-top: 1.5px var(--accent-color) solid;
     font-family: 'Tickerbit', monospace;
-    /* letter-spacing: 0.1em; */
 }
 
 td:nth-child(odd) {
@@ -620,10 +653,10 @@ thead td {
 .bubble {
     position: relative;
     left: 205px;
-    top: 45px;
+    top: 42px;
     max-width: 180px;
     width: fit-content;
-    border: 1.5px var(--accent-color) dashed;
+    border: 1.5px var(--accent-color) solid;
     padding: 8px 15px;
     border-radius: 8px 8px 8px 0px;
     background-color: var(--main-color);
@@ -639,7 +672,41 @@ thead td {
 }
 
 .show-bubble {
-    height: 50px;
-    width: 2px;
-    position: relative;
+    height: 27px;
+    width: 27px;
+    display: flex;
+    position: fixed;
+    font-family: 'Tickerbit', monospace;
+    color: var(--accent-color);
+    background-color: var(--main-color);
+    border: var(--accent-color) dashed 2px;
+    justify-content: center;
+    align-items: center;
+    bottom: 65px;
+    font-size: 15.5px;
+    padding-top: 1px;
+    transition: opacity .3s linear;
+    opacity: 1;
+}
+
+.bee {
+    animation: beefly 6s linear infinite;
+}
+
+#bee2 {
+    animation-delay: 3s;
+}
+
+@keyframes beefly {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(80px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }

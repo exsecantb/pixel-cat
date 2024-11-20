@@ -1,5 +1,8 @@
 import React from 'react';
 
+/* Speeches are displayed sequentially according to
+   the locations of their classes on the tip_line.  */
+
 class SpeechBubble extends React.Component {
     constructor(props) {
         super(props);
@@ -8,7 +11,9 @@ class SpeechBubble extends React.Component {
             current: 0
         };
         this.speeches = [
-            ["I feel a bit lonely today...",
+            ["I feel a bit lonely today...&I haven't seen my dear friend for a long time...",
+            "What a wonderful field and...&her favorite sunflowers",
+            "These bees don't seem safe at all!",
             "Gotta be careful here",
             "Bye-bye, yummy creatures!"],
 
@@ -37,22 +42,33 @@ class SpeechBubble extends React.Component {
         }));
         // Animated text
         let message = this.speeches[this.props.currentLevel][this.state.current];
-        const delay = 115;
         const elem = document.getElementById("speech");
         elem.innerHTML = '';
         let print_text = (message, elem, delay) => {
             if (message.length > 0) {
-                elem.innerHTML += message[0];
-                setTimeout(
-                    function() {
-                        print_text(message.slice(1), elem, delay); 
-                    },
-                delay);
+                if (message[0] !== "&"){
+                    elem.innerHTML += message[0];
+                    setTimeout(
+                        function() {
+                            print_text(message.slice(1), elem, 85); 
+                        },
+                    delay);
+                } else {  // Doubled speech
+                    setTimeout(() => {
+                        elem.innerHTML = message[1];
+                        setTimeout(
+                            function() {
+                                print_text(message.slice(2), elem, 85); 
+                            },
+                        delay);
+                    }, 800);
+                }
+                
             } else {
                 setTimeout(() => this.setState({ isShown: false }), 1000);
             }
         }
-        print_text(message, elem, delay);
+        print_text(message, elem, 85);
     };
     
     render() {

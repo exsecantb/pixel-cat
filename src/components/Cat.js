@@ -27,6 +27,9 @@ import whiteJump from '../icon/cat/white_run_8fps.gif';
 import whiteRun from '../icon/cat/white_walk_fast_8fps.gif';
 import whiteStuck from '../icon/cat/white_swipe_8fps.gif';
 
+const WALK_SPEED = 6.5;
+const RUN_SPEED = 3.5;
+
 class Cat extends React.Component {
     constructor(props) {
         super(props);
@@ -44,7 +47,8 @@ class Cat extends React.Component {
             stamina: 100,
             distance: 0,
             shift: 0, // Platform distance to move
-            speed: 7
+            checkpoint: [0, 0, false, 0],
+            speed: WALK_SPEED
         };
         this.moveStartTimestamp = null;
         this.moveId = null;
@@ -97,12 +101,9 @@ class Cat extends React.Component {
             isRunning: false,
             isJump: false,
             isStuck: false,
-            isLimit: false,
             isFalling: false,
             stamina: 100,
-            distance: 0,
-            shift: 0,
-            speed: 7
+            speed: WALK_SPEED
         });
         this.moveStartTimestamp = null;
         this.moveId = null;
@@ -122,7 +123,7 @@ class Cat extends React.Component {
             this.setState({
                 isWalking: true,
                 isIdle: false,
-                speed: 7,
+                speed: WALK_SPEED,
                 isRight: (event.keyCode === 39)
             });
             this.moveStartTimestamp = performance.now();
@@ -148,7 +149,7 @@ class Cat extends React.Component {
         if (event.keyCode === 16 && this.state.isWalking && !this.state.isJump && !this.state.isRunning) {
             this.setState({
                 isRunning: true,
-                speed: 4
+                speed: RUN_SPEED
             });
             cancelAnimationFrame(this.staminaId);
             this.animateStaminaDecrease();
@@ -185,7 +186,7 @@ class Cat extends React.Component {
         if (event.keyCode === 16 && this.state.isWalking) {
             this.setState({
                 isRunning: false,
-                speed: 7
+                speed: WALK_SPEED
             });
             cancelAnimationFrame(this.staminaId);
             this.animateStaminaIncrease();
@@ -283,6 +284,8 @@ class Cat extends React.Component {
             }
             // Checking if falling
             this.checkIfFalling();
+            // Checking obstacles
+            this.checkObstacle();
             // Checking if win
             this.checkIfWin(elementRight);
             this.moveStartTimestamp = timestamp;
@@ -327,6 +330,27 @@ class Cat extends React.Component {
                 });
                 this.speechBubble.hardShutdown();
                 this.props.onDeath("What happens if you mix cat and water?");
+                break;
+            }
+        }
+    }
+
+    checkObstacle() {
+        const control = document.getElementById("control");
+        const catRight = calculateElementRight(control);
+        const catLeft = calculateElementLeft(control);
+        const catTop = calculateElementTop(control);
+        for (let bee of document.getElementsByClassName("bee")) {
+            const beeRight = calculateElementRight(bee);
+            const beeLeft = calculateElementLeft(bee);
+            const beeBottom = calculateElementBottom(bee);
+            if (((beeLeft < catRight && catRight < beeRight) || (beeLeft < catLeft && catLeft < beeRight)) && catTop < beeBottom - 10) {
+                this.setState({
+                    isAlive: false
+                });
+                this.speechBubble.hardShutdown();
+                this.props.onDeath("Ouch... That was painful.");
+                break;
             }
         }
     }
@@ -336,9 +360,16 @@ class Cat extends React.Component {
         const finishCenter = calculateElementCenter(finish);
         if (catRight >= finishCenter) {
             this.setState({
-                isAlive: false
+                isAlive: false,
+                checkpoint: [0, 0, false, 0]
             });
             this.speechBubble.hardShutdown();
+            this.speechBubble.setState({
+                current: 0
+            });
+            for (let bubble of document.getElementsByClassName("show-bubble")) {
+                bubble.style.opacity = 1;
+            }
             this.props.onFinish();
         } else {
             // Checking if bubble should be displayed
@@ -352,6 +383,10 @@ class Cat extends React.Component {
             const bubbleCenter = calculateElementCenter(bubbles[this.speechBubble.state.current]);
             if (catRight >= bubbleCenter && !this.speechBubble.state.isShown) {
                 this.speechBubble.showBubble();
+                this.setState({
+                    checkpoint: [this.state.distance, this.state.shift, this.state.isLimit, this.props.timer.state.time]
+                });
+                bubbles[this.speechBubble.state.current].style.opacity = 0.25;
             }
         }
     }
@@ -360,7 +395,7 @@ class Cat extends React.Component {
         if (this.state.stamina <= 0) {
             this.setState({
                 isRunning: false,
-                speed: 7,
+                speed: WALK_SPEED,
                 stamina: 0
             });
             cancelAnimationFrame(this.staminaId);
@@ -434,6 +469,18 @@ function calculateElementRight(element) {
     const elementRect = element.getBoundingClientRect();
     const elementRight = elementRect.right;
     return elementRight;
+}
+
+function calculateElementTop(element) {
+    const elementRect = element.getBoundingClientRect();
+    const elementTop = elementRect.top;
+    return elementTop;
+}
+
+function calculateElementBottom(element) {
+    const elementRect = element.getBoundingClientRect();
+    const elementBottom = elementRect.bottom;
+    return elementBottom;
 }
 
 function calculateElementCenter(element) {

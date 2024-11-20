@@ -35,6 +35,9 @@ class LevelMenu extends React.Component {
             this.setState({
                 currentLevel: index
             });
+            for (let bubble of document.getElementsByClassName("show-bubble")) {
+                bubble.style.opacity = 1;
+            }
             this.props.setLevel(index);
         }
     };
