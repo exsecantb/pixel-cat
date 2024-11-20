@@ -2,7 +2,7 @@
 `Project under development`
 
 
-Explore different levels with the pixelated main character. Check it out: [exsec.dev/pixelcat](https://exsec.dev/pixelcat/)  
+Explore different levels with the pixelated main character. Check it out: [exsec.dev/pixel-cat](https://exsec.dev/pixel-cat/)  
 The project was implemented using React JS. Control is carried out via the keyboard.
 
 ###### Interface
